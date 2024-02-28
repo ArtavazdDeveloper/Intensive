@@ -1,4 +1,4 @@
-package homework1;
+package main.java.org.example.homework1;
 
 /**
  * Thread-safe list based on linked lists.
@@ -94,6 +94,102 @@ public class ThreadSafeLinkedList<T> {
      */
     public synchronized int size() {
         return size;
+    }
+
+    /**
+     * Removes the element at the specified index.
+     * @param index index of the element to remove
+     * @throws IndexOutOfBoundsException if the index goes beyond the bounds of the list
+     */
+    public synchronized void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        if (index == 0) {
+            head = head.next;
+        } else {
+            Node<T> current = head;
+            for (int i = 0; i < index - 1; i++) {
+                current = current.next;
+            }
+            current.next = current.next.next;
+        }
+        size--;
+    }
+
+    /**
+     * Clears the list by removing all its elements.
+     */
+    public synchronized void clear() {
+        head = null;
+        size = 0;
+    }
+
+    /**
+     * Checks whether the list contains the specified element.
+     * @param element element to check
+     * @return true if the list contains the specified element, false otherwise
+     */
+    public synchronized boolean contains(T element) {
+        Node<T> current = head;
+        while (current != null) {
+            if (current.data.equals(element)) {
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+
+    /**
+     * Checks whether the list is empty.
+     * @return true if the list is empty, false otherwise
+     */
+    public synchronized boolean isEmpty() {
+        return size == 0;
+    }
+
+    /**
+     * Gets the first element of the list.
+     * @return the first element of the list
+     * @throws IndexOutOfBoundsException if the list is empty
+     */
+    public synchronized T first() {
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException("The list is empty");
+        }
+        return head.data;
+    }
+
+    /**
+     * Gets the last element of the list.
+     * @return the last element of the list
+     * @throws IndexOutOfBoundsException if the list is empty
+     */
+    public synchronized T last() {
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException("The list is empty");
+        }
+        Node<T> current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        return current.data;
+    }
+
+    /**
+     * Returns a new array containing all the elements in this list in proper sequence.
+     * @return an array containing all the elements in this list in proper sequence
+     */
+    public synchronized Object[] toArray() {
+        Object[] array = new Object[size];
+        Node<T> current = head;
+        int index = 0;
+        while (current != null) {
+            array[index++] = current.data;
+            current = current.next;
+        }
+        return array;
     }
 
     private static class Node<T> {

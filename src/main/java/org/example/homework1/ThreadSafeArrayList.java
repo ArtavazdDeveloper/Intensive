@@ -1,4 +1,7 @@
-package homework1;
+package main.java.org.example.homework1;
+
+import main.java.org.example.homework1.functional.Action;
+
 
 /**
  * Array-based thread-safe list.
@@ -25,7 +28,9 @@ public class ThreadSafeArrayList<T> {
         if (minCapacity > oldCapacity) {
             int newCapacity = Math.max(oldCapacity * 2, minCapacity);
             Object[] newArray = new Object[newCapacity];
-            System.arraycopy(array, 0, newArray, 0, size);
+            for (int i = 0; i < size; i++) {
+                newArray[i] = array[i];
+            }
             array = newArray;
         }
     }
@@ -50,7 +55,9 @@ public class ThreadSafeArrayList<T> {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
         ensureCapacity(size + 1);
-        System.arraycopy(array, index, array, index + 1, size - index);
+        for (int i = size; i > index; i--) {
+            array[i] = array[i - 1];
+        }
         array[index] = element;
         size++;
     }
@@ -77,7 +84,9 @@ public class ThreadSafeArrayList<T> {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
-        System.arraycopy(array, index + 1, array, index, size - index - 1);
+        for (int i = index; i < size - 1; i++) {
+            array[i] = array[i + 1];
+        }
         array[--size] = null;
     }
 
@@ -171,5 +180,77 @@ public class ThreadSafeArrayList<T> {
             }
         }
         return -1;
+    }
+
+    /**
+     * Returns true if the list is empty, false otherwise.
+     * @return true if the list is empty, false otherwise
+     */
+    public synchronized boolean isEmpty() {
+        return size == 0;
+    }
+
+    /**
+     * Trims the capacity of this list to be the list's current size.
+     */
+    public synchronized void trimToSize() {
+        if (size < array.length) {
+            Object[] newArray = new Object[size];
+            for (int i = 0; i < size; i++) {
+                newArray[i] = array[i];
+            }
+            array = newArray;
+        }
+    }
+
+    /**
+     * Converts this list to an array.
+     * @return an array containing all of the elements in this list in proper sequence
+     */
+    public synchronized Object[] toArray() {
+        Object[] newArray = new Object[size];
+        for (int i = 0; i < size; i++) {
+            newArray[i] = array[i];
+        }
+        return newArray;
+    }
+
+    /**
+     * Converts this list to a regular ArrayList.
+     * @return a new ArrayList containing all of the elements in this list in proper sequence
+     */
+    public synchronized ThreadSafeArrayList<T> toList() {
+        ThreadSafeArrayList<T> list = new ThreadSafeArrayList<>();
+        for (int i = 0; i < size; i++) {
+            list.add((T) array[i]);
+        }
+        return list;
+    }
+
+    /**
+     * Performs the given action for each element of the list until all elements have been processed or the action throws an exception.
+     * @param action the action to be performed for each element
+     */
+    public synchronized void forEach(Action<T> action) {
+        for (int i = 0; i < size; i++) {
+            action.perform((T) array[i]);
+        }
+    }
+
+    /**
+     * Returns a string representation of this list.
+     * @return a string representation of this list
+     */
+    @Override
+    public synchronized String toString() {
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < size; i++) {
+            if (i > 0) {
+                sb.append(", ");
+            }
+            sb.append(array[i]);
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
