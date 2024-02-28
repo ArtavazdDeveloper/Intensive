@@ -1,4 +1,4 @@
-package test.java.org.example.homework1;
+package org.example.homework1;
 
 import main.java.org.example.homework1.ThreadSafeArrayList;
 import org.junit.jupiter.api.BeforeEach;
