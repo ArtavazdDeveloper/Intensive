@@ -1,4 +1,6 @@
-package main.java.org.example.homework1;
+package org.example.homework1;
+
+
 
 import java.util.Scanner;
 

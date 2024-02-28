@@ -1,20 +1,26 @@
 package org.example.homework1;
 
-import main.java.org.example.homework1.ThreadSafeArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Tests for the ThreadSafeArrayList class.
+ */
 public class ThreadSafeArrayListTest {
 
     private ThreadSafeArrayList<Integer> list;
-
+    /**
+     * Initializes a new ThreadSafeArrayList before each test.
+     */
     @BeforeEach
     void setUp() {
         list = new ThreadSafeArrayList<>();
     }
 
+    /**
+     * Tests the add and get methods.
+     */
     @Test
     void addAndGetElement() {
         list.add(1);
@@ -23,6 +29,9 @@ public class ThreadSafeArrayListTest {
         assertEquals(2, list.get(1));
     }
 
+    /**
+     * Tests the add method with index.
+     */
     @Test
     void addElementAtIndex() {
         list.add(0, 1);
@@ -31,6 +40,9 @@ public class ThreadSafeArrayListTest {
         assertEquals(2, list.get(1));
     }
 
+    /**
+     * Tests the remove method.
+     */
     @Test
     void removeElementAtIndex() {
         list.add(1);
@@ -40,6 +52,9 @@ public class ThreadSafeArrayListTest {
         assertEquals(1, list.size());
     }
 
+    /**
+     * Tests the clear method.
+     */
     @Test
     void clearList() {
         list.add(1);
@@ -48,6 +63,9 @@ public class ThreadSafeArrayListTest {
         assertTrue(list.isEmpty());
     }
 
+    /**
+     * Tests the contains method.
+     */
     @Test
     void containsElement() {
         list.add(1);
@@ -55,6 +73,9 @@ public class ThreadSafeArrayListTest {
         assertFalse(list.contains(2));
     }
 
+    /**
+     * Tests the isEmpty method.
+     */
     @Test
     void checkEmptyList() {
         assertTrue(list.isEmpty());
@@ -62,6 +83,9 @@ public class ThreadSafeArrayListTest {
         assertFalse(list.isEmpty());
     }
 
+    /**
+     * Tests the size method.
+     */
     @Test
     void checkSize() {
         assertEquals(0, list.size());
@@ -71,6 +95,9 @@ public class ThreadSafeArrayListTest {
         assertEquals(0, list.size());
     }
 
+    /**
+     * Tests the indexOf method.
+     */
     @Test
     void checkIndexOfElement() {
         list.add(1);
@@ -80,6 +107,9 @@ public class ThreadSafeArrayListTest {
         assertEquals(-1, list.indexOf(3));
     }
 
+    /**
+     * Tests the lastIndexOf method.
+     */
     @Test
     void checkLastIndexOfElement() {
         list.add(1);
@@ -90,6 +120,9 @@ public class ThreadSafeArrayListTest {
         assertEquals(-1, list.lastIndexOf(3));
     }
 
+    /**
+     * Tests the trimToSize method.
+     */
     @Test
     void checkTrimToSize() {
         for (int i = 0; i < 20; i++) {
@@ -100,6 +133,9 @@ public class ThreadSafeArrayListTest {
         assertEquals(20, list.toArray().length);
     }
 
+    /**
+     * Tests the toArray method.
+     */
     @Test
     void checkToArray() {
         list.add(1);
@@ -110,6 +146,9 @@ public class ThreadSafeArrayListTest {
         assertEquals(2, array[1]);
     }
 
+    /**
+     * Tests the toList method.
+     */
     @Test
     void checkToList() {
         list.add(1);
@@ -120,6 +159,9 @@ public class ThreadSafeArrayListTest {
         assertEquals(2, newList.get(1));
     }
 
+    /**
+     * Tests the forEach method.
+     */
     @Test
     void checkForEach() {
         list.add(1);

@@ -1,4 +1,4 @@
-package main.java.org.example.homework1;
+package org.example.homework1;
 
 /**
  * Thread-safe list based on linked lists.

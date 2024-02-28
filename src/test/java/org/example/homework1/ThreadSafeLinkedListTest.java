@@ -1,12 +1,17 @@
 package org.example.homework1;
 
-import main.java.org.example.homework1.ThreadSafeLinkedList;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Class containing tests for the ThreadSafeLinkedList class.
+ */
 public class ThreadSafeLinkedListTest {
 
+    /**
+     * Tests the add and get methods.
+     */
     @Test
     public void testAddAndGet() {
         ThreadSafeLinkedList<Integer> list = new ThreadSafeLinkedList<>();
@@ -19,6 +24,9 @@ public class ThreadSafeLinkedListTest {
         assertEquals(3, list.get(2));
     }
 
+    /**
+     * Tests the add method with index.
+     */
     @Test
     public void testAddAtIndex() {
         ThreadSafeLinkedList<String> list = new ThreadSafeLinkedList<>();
@@ -30,6 +38,9 @@ public class ThreadSafeLinkedListTest {
         assertEquals("c", list.get(2));
     }
 
+    /**
+     * Tests the remove method.
+     */
     @Test
     public void testRemove() {
         ThreadSafeLinkedList<String> list = new ThreadSafeLinkedList<>();
@@ -43,6 +54,9 @@ public class ThreadSafeLinkedListTest {
         assertEquals("c", list.get(1));
     }
 
+    /**
+     * Tests the clear method.
+     */
     @Test
     public void testClear() {
         ThreadSafeLinkedList<Integer> list = new ThreadSafeLinkedList<>();
@@ -54,6 +68,9 @@ public class ThreadSafeLinkedListTest {
         assertTrue(list.isEmpty());
     }
 
+    /**
+     * Tests the contains method.
+     */
     @Test
     public void testContains() {
         ThreadSafeLinkedList<String> list = new ThreadSafeLinkedList<>();
@@ -74,6 +91,9 @@ public class ThreadSafeLinkedListTest {
         assertEquals(3, list.last());
     }
 
+    /**
+     * Tests the toArray method.
+     */
     @Test
     public void testToArray() {
         ThreadSafeLinkedList<Integer> list = new ThreadSafeLinkedList<>();
